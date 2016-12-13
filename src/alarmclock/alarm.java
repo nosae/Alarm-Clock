@@ -323,135 +323,100 @@ public void actionPerformed(ActionEvent a)
 
     alarm.setAlarmHour(hourInt);
 
-System.out.println(alarm.getalarmHour());
+    System.out.println(alarm.getalarmHour());
 
 
-String text1 = iMinute.getText();
+    String text1 = iMinute.getText();
 
     int minuteInt = Integer.parseInt(text1);
 
     alarm.setAlarmMinute(minuteInt);
 
-System.out.println(alarm.getAlarmMinute());
+    System.out.println(alarm.getAlarmMinute());
 
 
-String text2 = iAMPM.getText();
+    String text2 = iAMPM.getText();
 
     int ampmInt = Integer.parseInt(text2);
 
     alarm.setAlarmAmPm(ampmInt);
 
-System.out.println(alarm.getAlarmAmPm());
+    System.out.println(alarm.getAlarmAmPm());
 
 
 
 
-timeAlarm.setText(text + ":" + text1 + " " + text2 + " ");
+    timeAlarm.setText(text + ":" + text1 + " " + text2 + " ");
 
 
 
-}
+	}
 
-});
-
-     
-
+	});
    
-
-       
-
-    
-
-
-
-
-     
 
     off.addActionListener(new ActionListener(){
 
 
 
-@Override
+    	@Override
 
-public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {
 
-if(off.getModel().isPressed()){
-
- 
-
- 
-
-}
-System.exit(0);
-System.out.println("off");
+	if(off.getModel().isPressed()){
 
 
-}
+	}
+	System.exit(0);
+	System.out.println("off");
 
-     
+
+	}
 
     });
 
-     
-
-     
 
     System.out.println(alarm.getalarmHour());
 
-     
 
     double lastTime = System.currentTimeMillis();
-
     double currentTime = lastTime;
-
     double seconds = 45;
-
     double milliSeconds = 0;
 
      
 
-while(true){
+    while(true){
+    	currentTime = System.currentTimeMillis();
+    	double deltaTime = currentTime - lastTime;
+    	lastTime = currentTime;
+	
+    	//seconds += deltaTime / 1000.0;
+
+    	milliSeconds += deltaTime;
 
 
-currentTime = System.currentTimeMillis();
-
-double deltaTime = currentTime - lastTime;
-
-lastTime = currentTime;
-
-//seconds += deltaTime / 1000.0;
-
-milliSeconds += deltaTime;
+    	if(milliSeconds >= 1000){
 
 
-if(milliSeconds >= 1000){
+    		seconds +=1 ;
+
+    		milliSeconds -= 1000;
+
+    	}
 
 
-seconds +=1 ;
+    	if(seconds >= 60){
 
-milliSeconds -= 1000;
+    		minute += 1;
 
-}
+    		seconds -= 60;
 
+    	}
 
-if(seconds >= 60){
+	String Time1 =  hour + ":" + minute + " " +  (int)seconds +  " " + getStringAMPM();
 
-minute += 1;
-
-seconds -= 60;
-
-}
-
-
-
-
-String Time1 =  hour + ":" + minute + " " +  (int)seconds +  " " + getStringAMPM();
-
-
-
-cTime1.setText(Time1);
-
-                
+	cTime1.setText(Time1);
 
                 //Play Alarm At Time
 
@@ -463,44 +428,25 @@ cTime1.setText(Time1);
 
                     File soundAlarm = new File("/Users/nosaedogun/Desktop/horn2.wav");
 
-                    //playSound(soundAlarm);
-
-                    
-
                     playRadioStream("http://radio.flex.ru:8000/radionami" );
-
-                    
-
-                    
-
-                    
-                   // playSound(url);
 
                 }
 
 
-timePanel.repaint();
+                timePanel.repaint();
 
 
-}
+	}
 
-}
+    }
 
     private static void playRadioStream(String spec) throws IOException, JavaLayerException {
 
 // TODO Auto-generated method stub
 
-    
-
     URLConnection urlConnection = new URL ( spec ).openConnection ();
 
-
-
-      
-
         urlConnection.connect ();
-
-
 
         // Playing
 
@@ -512,28 +458,16 @@ timePanel.repaint();
 }
 
     
+    public static String getStringAMPM(){
 
- 
+    	if(amPm == 0)
 
-    
+    		return "AM";
 
-public static String getStringAMPM(){
+    	else
 
+    		return "PM";
 
-if(amPm == 0)
+    }
 
-return "AM";
-
-else
-
-return "PM";
-
-}
-
-    
-
-
-
-    
-
-}
+	}
